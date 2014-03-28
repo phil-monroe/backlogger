@@ -1,0 +1,11 @@
+development:
+  adapter: postgresql
+  database: backlogger-dev
+  pool: 5
+  timeout: 5000
+
+test:
+  adapter: postgresql
+  database: backlogger-test
+  pool: 5
+  timeout: 5000
