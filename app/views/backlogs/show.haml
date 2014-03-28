@@ -32,9 +32,8 @@
                 = story.title
 
               %td{"data-target" => "#edit-story-#{story.id}", "data-toggle" => "modal"}
-                %p= story.who
-                %p= story.what
-                %p= story.why
+                - story.overview.split("\n").each do |line|
+                  %p= line
 
               %td.text-center
                 = story.story_points
