@@ -1,0 +1,61 @@
+/ Modal
+.modal.fade{id: id, role: "dialog", tabindex: "-1"}
+  .modal-dialog
+    .modal-content
+      = form_for [backlog, story], html: {  role: "form" } do |f|
+        .modal-header
+          %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} &#215;
+          .form-group
+            = f.text_field :title, class: 'form-control', placeholder: "Story title"
+
+          %label
+            = f.check_box :sprint_ready
+            sprint ready
+
+        .modal-body.form-horizontal
+          .form-group
+            = f.label :theme, class: 'col-sm-2 control-label'
+            .col-sm-10
+              = f.text_field :theme, class: 'form-control', placeholder: "theme"
+
+          .form-group
+            = f.label :who, "As a", class: 'col-sm-2 control-label'
+            .col-sm-10
+              = f.text_field :who, class: 'form-control', placeholder: "user role"
+
+          .form-group
+            = f.label :who, "I want", class: 'col-sm-2 control-label'
+            .col-sm-10
+              = f.text_field :what, class: 'form-control', placeholder: "something"
+
+          .form-group
+            = f.label :why, "So that", class: 'col-sm-2 control-label'
+            .col-sm-10
+              = f.text_field :why, class: 'form-control', placeholder: "i get value"
+
+          .form-group
+            = f.label :acceptance_criteria, class: 'col-sm-2 control-label'
+            .col-sm-10
+              = f.text_area :acceptance_criteria, class: 'form-control', placeholder: "- pass fail acceptance criteria"
+
+          .form-group
+            = f.label :notes, class: 'col-sm-2 control-label'
+            .col-sm-10
+              = f.text_area :notes, class: 'form-control', placeholder: "- pass fail acceptance criteria"
+
+          .form-group
+            = f.label :story_points, class: 'col-sm-2 control-label'
+            .col-sm-2
+              = f.text_field :story_points, class: 'form-control', placeholder: "1,2,3,..."
+
+          .form-group
+            = f.label :business_value, class: 'col-sm-2 control-label'
+            .col-sm-4
+              = f.text_field :business_value, class: 'form-control', placeholder: "1000,2000,3000,..."
+
+
+
+
+        .modal-footer
+          %button.btn.btn-default{"data-dismiss" => "modal", type: "button"} Close
+          = f.submit 'Save changes', class: 'btn btn-primary'

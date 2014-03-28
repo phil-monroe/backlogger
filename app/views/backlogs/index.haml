@@ -1,0 +1,35 @@
+%br
+.container
+  .row
+    .col-md-10
+      %ol
+        - @backlogs.each do |backlog|
+          %li
+            %h2
+              %a{href: backlog_path(backlog)}
+                = backlog.name
+
+    .col-md-2
+      %a.btn.btn-info.btn-sm{"data-target" => "#new-backlog", "data-toggle" => "modal"}
+        Create Backlog
+
+/ Modal
+#new-backlog.modal.fade{role: "dialog", tabindex: "-1"}
+  .modal-dialog
+    .modal-content
+      = form_for Backlog.new, html: { role: "form" } do |f|
+        .modal-header
+          %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} &#215;
+          %h2
+            New Backlog
+
+
+        .modal-body.form-horizontal
+          .form-group
+            = f.label :name, class: 'col-sm-2 control-label'
+            .col-sm-10
+              = f.text_field :name, class: 'form-control', placeholder: "backlog name"
+
+        .modal-footer
+          %button.btn.btn-default{"data-dismiss" => "modal", type: "button"} Close
+          = f.submit 'Create', class: 'btn btn-primary'
