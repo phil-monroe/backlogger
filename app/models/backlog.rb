@@ -8,7 +8,7 @@ class Backlog < ActiveRecord::Base
   end
 
   def ordered_stories
-    story_index = stories.inject(Hash.new) {|h, s| h[s.id] = s; h}
-    story_order.map{|id| story_index[id]}
+    story_index = stories.uncompleted.inject(Hash.new) {|h, s| h[s.id] = s; h}
+    story_order.map{|id| story_index[id]}.compact
   end
 end

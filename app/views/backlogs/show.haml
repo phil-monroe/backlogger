@@ -47,11 +47,19 @@
                 - else
                   %span.label.label-danger needs review
 
-              %td
-                %a.btn.btn-default.btn-xs{"data-target" => "#duplicate-story-#{story.id}", "data-toggle" => "modal"}
-                  duplicate
+              %td.text-right
+                %div
+                  = form_for [@backlog, story], html: {  role: "form" } do |f|
+                    - field = story.started_at.present? ? :compleated : :started
+                    = f.hidden_field field, value: true
+                    = f.submit field, class: 'btn btn-xs btn-success'
+                %div
+                  %a.btn.btn-default.btn-xs{"data-target" => "#duplicate-story-#{story.id}", "data-toggle" => "modal"}
+                    duplicate
+                %div
+                  = link_to 'remove', [@backlog, story], method: :delete, class: 'btn btn-xs btn-primary'
 
-                = link_to 'remove', [@backlog, story], method: :delete, class: 'btn btn-xs btn-primary'
+
 
               = render 'stories/form_modal', id: "edit-story-#{story.id}", backlog: @backlog, story: story
               = render 'stories/form_modal', id: "duplicate-story-#{story.id}", backlog: @backlog, story: story.dup

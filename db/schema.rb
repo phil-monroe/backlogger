@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140328031324) do
+ActiveRecord::Schema.define(version: 20140330182339) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,8 @@ ActiveRecord::Schema.define(version: 20140328031324) do
     t.integer  "backlog_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "started_at"
+    t.datetime "compleated_at"
   end
 
 end

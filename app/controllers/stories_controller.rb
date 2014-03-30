@@ -8,7 +8,9 @@ class StoriesController < ApplicationController
 
   def update
     story = backlog.stories.find(params[:id])
+    puts story_params.inspect
     story.update_attributes(story_params)
+
     redirect_to backlog
   end
 
@@ -28,6 +30,9 @@ class StoriesController < ApplicationController
   end
 
   def story_params
-    params.require('story').permit!
+    p = params.require('story').permit([:title, :who, :what, :why, :acceptance_criteria, :notes, :theme, :sprint_ready, :story_points, :business_value, :backlog_id, :created_at, :updated_at, :compleated, :started])
+    p[:compleated] = p[:compleated] == 'true' if p[:compleated].present?
+    p[:started] = p[:started] == 'true' if p[:started].present?
+    p
   end
 end
