@@ -1,69 +1,71 @@
-.container
-  %h1
-    = @backlog.name
+= cache [@backlog, 'show'] do
 
-  %a.pull-right.btn.btn-info.btn-sm{"data-target" => "#new-story", "data-toggle" => "modal"}
-    Add Story
-  = render 'stories/form_modal', id: "new-story", backlog: @backlog, story: Story.new
+  .container
+    %h1
+      = @backlog.name
 
-
-  .row
-    .col-md-12
-      %table.table.table-striped.sorted-table
-        %thead
-          %tr
-            %th
-            %th id
-            %th title
-            %th overview
-            %th.text-center points
-            %th.text-center roi
-            %th
-            %th
-        %tbody
-          - @backlog.ordered_stories.each do |story|
-            = cache [@backlog, story, 'story-row'] do
-              %tr{'data-story-id' => story.id}
-                %td.grabber |||
-
-                %td
-                  = story.id
-
-                %td{"data-target" => "#edit-story-#{story.id}", "data-toggle" => "modal"}
-                  = story.title
-
-                %td{"data-target" => "#edit-story-#{story.id}", "data-toggle" => "modal"}
-                  - story.overview.split("\n").each do |line|
-                    %p= line
-
-                %td.text-center
-                  = story.story_points
-
-                %td.text-center
-                  = story.roi
-
-                %td.text-center
-                  - if story.sprint_ready
-                    %span.label.label-success sprint ready
-                  - else
-                    %span.label.label-danger needs review
-
-                %td.text-right
-                  %div
-                    = form_for [@backlog, story], html: {  role: "form" } do |f|
-                      - field = story.started_at.present? ? :compleated : :started
-                      = f.hidden_field field, value: true
-                      = f.submit field, class: 'btn btn-xs btn-success'
-                  %div
-                    %a.btn.btn-default.btn-xs{"data-target" => "#duplicate-story-#{story.id}", "data-toggle" => "modal"}
-                      duplicate
-                  %div
-                    = link_to 'remove', [@backlog, story], method: :delete, class: 'btn btn-xs btn-primary'
+    %a.pull-right.btn.btn-info.btn-sm{"data-target" => "#new-story", "data-toggle" => "modal"}
+      Add Story
+    = render 'stories/form_modal', id: "new-story", backlog: @backlog, story: Story.new
 
 
+    .row
+      .col-md-12
+        %table.table.table-striped.sorted-table
+          %thead
+            %tr
+              %th
+              %th id
+              %th title
+              %th overview
+              %th.text-center points
+              %th.text-center roi
+              %th
+              %th
+          %tbody
+            - @backlog.ordered_stories.each do |story|
+              = cache [@backlog, story, 'story-row'] do
+                %tr{'data-story-id' => story.id}
+                  %td.grabber |||
 
-                = render 'stories/form_modal', id: "edit-story-#{story.id}", backlog: @backlog, story: story
-                = render 'stories/form_modal', id: "duplicate-story-#{story.id}", backlog: @backlog, story: story.dup
-.hidden
-  = form_for @backlog, html: {id: 'backlog_form'} do |f|
-    = f.hidden_field :story_order
+                  %td
+                    = story.id
+
+                  %td{"data-target" => "#edit-story-#{story.id}", "data-toggle" => "modal"}
+                    = story.title
+
+                  %td{"data-target" => "#edit-story-#{story.id}", "data-toggle" => "modal"}
+                    - story.overview.split("\n").each do |line|
+                      %p= line
+
+                  %td.text-center
+                    = story.story_points
+
+                  %td.text-center
+                    = story.roi
+
+                  %td.text-center
+                    - if story.sprint_ready
+                      %span.label.label-success sprint ready
+                    - else
+                      %span.label.label-danger needs review
+
+                  %td.text-right
+                    %div
+                      = form_for [@backlog, story], html: {  role: "form" } do |f|
+                        - field = story.started_at.present? ? :compleated : :started
+                        = f.hidden_field field, value: true
+                        = f.submit field, class: 'btn btn-xs btn-success'
+                    %div
+                      %a.btn.btn-default.btn-xs{"data-target" => "#duplicate-story-#{story.id}", "data-toggle" => "modal"}
+                        duplicate
+                    %div
+                      = link_to 'remove', [@backlog, story], method: :delete, class: 'btn btn-xs btn-primary'
+
+
+
+                  = render 'stories/form_modal', id: "edit-story-#{story.id}", backlog: @backlog, story: story
+                  = render 'stories/form_modal', id: "duplicate-story-#{story.id}", backlog: @backlog, story: story.dup
+  .hidden
+    = form_for @backlog, html: {id: 'backlog_form'} do |f|
+      = f.hidden_field :story_order
