@@ -18,11 +18,7 @@ gem 'twitter-bootswatch-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'unf'
 gem 'unicorn'
-
-
-group :production, :development do
-  gem 'rails_12factor'
-end
+gem 'rails_12factor', require: ENV['STDOUT_LOGGING'] == 'true'
 
 
 group :development, :test do
