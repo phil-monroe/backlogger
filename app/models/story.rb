@@ -1,5 +1,5 @@
 class Story < ActiveRecord::Base
-  belongs_to :backlog
+  belongs_to :backlog, touch: true
   TABLE = self.arel_table
 
 
