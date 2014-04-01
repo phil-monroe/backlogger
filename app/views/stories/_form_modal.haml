@@ -2,7 +2,7 @@
 .modal.fade{id: id, role: "dialog", tabindex: "-1"}
   .modal-dialog
     .modal-content
-      = form_for [backlog, story], html: {  role: "form" } do |f|
+      = form_for [current_user, backlog, story], html: {  role: "form" } do |f|
         .modal-header
           %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} &#215;
           .form-group

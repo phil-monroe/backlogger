@@ -9,7 +9,7 @@ class BacklogsController < ApplicationController
 
   def create
     backlog = Backlog.create(backlog_params)
-    redirect_to backlog
+    redirect_to [current_user, backlog]
   end
 
   def update
@@ -17,7 +17,7 @@ class BacklogsController < ApplicationController
     story_ids = params[:backlog][:story_order].split(',').map(&:to_i)
     backlog.story_order = story_ids
     backlog.save
-    redirect_to backlog
+    redirect_to [current_user, backlog]
   end
 
   private

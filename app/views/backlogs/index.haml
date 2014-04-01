@@ -6,7 +6,7 @@
         - @backlogs.each do |backlog|
           %li
             %h2
-              %a{href: backlog_path(backlog)}
+              %a{href: user_backlog_path(current_user, backlog)}
                 = backlog.name
 
     .col-md-2
@@ -17,7 +17,7 @@
 #new-backlog.modal.fade{role: "dialog", tabindex: "-1"}
   .modal-dialog
     .modal-content
-      = form_for Backlog.new, html: { role: "form" } do |f|
+      = form_for [current_user, Backlog.new], html: { role: "form" } do |f|
         .modal-header
           %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} &#215;
           %h2

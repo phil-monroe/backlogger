@@ -3,7 +3,7 @@ class StoriesController < ApplicationController
     story = backlog.stories.create(story_params)
     backlog.story_order << story.id
     backlog.save!
-    redirect_to backlog
+    redirect_to [current_user, backlog]
   end
 
   def update
@@ -11,7 +11,7 @@ class StoriesController < ApplicationController
     puts story_params.inspect
     story.update_attributes(story_params)
 
-    redirect_to backlog
+    redirect_to [current_user, backlog]
   end
 
   def destroy
@@ -19,7 +19,7 @@ class StoriesController < ApplicationController
     backlog.story_order.delete story.id
     backlog.save
     story.destroy
-    redirect_to backlog
+    redirect_to [current_user, backlog]
   end
 
 

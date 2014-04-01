@@ -9,6 +9,7 @@ gem 'haml-rails'
 gem 'jquery-rails'
 gem 'memcachier'
 gem 'newrelic_rpm'
+gem 'omniauth-google-oauth2'
 gem 'pg'
 gem 'pry', require: false
 gem 'rack-timeout'
@@ -18,6 +19,7 @@ gem 'twitter-bootswatch-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'unf'
 gem 'unicorn'
+
 
 group :development, :test do
   gem 'rspec-rails'
