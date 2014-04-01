@@ -8,13 +8,21 @@
   .navbar-collapse.collapse.navbar-responsive-collapse
 
     %ul.nav.navbar-nav.navbar-right
-      %li.dropdown
-        %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}
-          = "#{current_user.first_name} #{current_user.last_name}"
-          %b.caret
-        %ul.dropdown-menu
-          %li
-            %a{href: user_backlogs_path(current_user)} My Backlogs
-          %li.divider
-          %li
-            %a{href: logout_path} Sign Out
+      - if current_user.present?
+        %li.dropdown
+          %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}
+            = "#{current_user.first_name} #{current_user.last_name}"
+            %b.caret
+          %ul.dropdown-menu
+            %li
+              %a{href: user_backlogs_path(current_user)} My Backlogs
+            %li.divider
+            %li
+              %a{href: auth_google_path}
+                Switch Account
+            %li
+              %a{href: logout_path} Sign Out
+      - else
+        %li
+          %a{href: auth_google_path}
+            Login with Google
