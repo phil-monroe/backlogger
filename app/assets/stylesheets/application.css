@@ -26,3 +26,9 @@
   margin-top: -5px;
   left: -5px;
   border-right: none; }
+
+.bottom-right {
+  position: absolute;
+  bottom:   1em;
+  right:    2em;
+}
