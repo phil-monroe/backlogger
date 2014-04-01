@@ -4,3 +4,9 @@
 require File.expand_path('../config/application', __FILE__)
 
 Backlogger::Application.load_tasks
+
+namespace :cache do
+  task clear: :environment do
+    Rails.cache.clear
+  end
+end
