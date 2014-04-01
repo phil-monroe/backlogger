@@ -2,6 +2,8 @@
   .row
     .col-lg-12
       .bottom-right
+        %a.btn.btn-info.btn-sm{href: cards_user_backlog_path(current_user, @backlog)}
+          Print Cards
         %a.btn.btn-info.btn-sm{"data-target" => "#new-story", "data-toggle" => "modal"}
           Add Story
       = render 'stories/form_modal', id: "new-story", backlog: @backlog, story: Story.new

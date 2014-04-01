@@ -1,10 +1,17 @@
 class BacklogsController < ApplicationController
+  layout false, only: :cards
+
   def index
     @backlogs = current_user.backlogs.load
   end
 
   def show
     @backlog = current_user.backlogs.find(params[:id])
+  end
+
+  def cards
+    @stories = current_user.backlogs.find(params[:id]).stories.uncompleted
+    @stories = @stories.where(id: params[:stories].split(?,).map(&:to_i)) if params[:stories]
   end
 
   def create

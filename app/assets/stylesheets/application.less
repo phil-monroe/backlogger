@@ -43,3 +43,26 @@ table.story-table {
   .actions{ width: 4em}
 
 }
+
+.story-row{
+  .story-card{
+    padding-top: 7em;
+    .row-fluid{
+      padding-bottom: 4em;
+    }
+    .id {
+      position: absolute;
+      top: 5em;
+      left: 3em;
+    }
+    .qr-code{
+      position: absolute;
+      top: 5em;
+      right: 3em;
+    }
+  }
+}
+
+@media print {
+	.page-break	{ display: block; page-break-before: always; }
+}

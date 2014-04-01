@@ -6,6 +6,10 @@ Backlogger::Application.routes.draw do
   resources :users do
     resources :backlogs do
       resources :stories
+
+      member do
+        get :cards
+      end
     end
   end
 
