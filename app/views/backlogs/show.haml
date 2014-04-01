@@ -14,17 +14,16 @@
 
   .row
     .col-md-12
-      %table.table.table-striped.sorted-table
+      %table.table.table-striped.sorted-table.story-table
         %thead
           %tr
-            %th
-            %th id
-            %th title
-            %th overview
-            %th.text-center points
-            %th.text-center roi
-            %th
-            %th
+            %th.grabber
+            %th.id                 id
+            %th.title              title
+            %th.overview           overview
+            %th.points.text-center points
+            %th.roi.text-center    roi
+            %th.actions
         %tbody
           - @backlog.ordered_stories.each do |story|
             = cache [@backlog, story, 'story-row'] do
@@ -33,6 +32,7 @@
 
                 %td
                   = story.id
+
 
                 %td{"data-target" => "#edit-story-#{story.id}", "data-toggle" => "modal"}
                   %strong
@@ -48,31 +48,37 @@
                 %td.text-center
                   = story.roi
 
-                %td.text-center
-                  - if story.sprint_ready
-                    %span.label.label-success sprint ready
-                  - else
-                    %span.label.label-danger needs review
-
                 %td
-                  .btn-group.btn-group-xs.pull-right
-                    %button.btn.btn-default.dropdown-toggle{"data-toggle" => "dropdown", type: "button"}
-                      Actions
-                      %span.caret
-                    %ul.dropdown-menu
-                      %li
-                        - field, text = story.started_at.present? ? [:compleated, 'compleated'] : [:started, 'start']
-                        - form_name = "edit_story_#{text}_#{story.id}"
-                        - js = "$('##{form_name}').submit();"
-                        = form_for [current_user, @backlog, story], html: {  role: "form", id: form_name } do |f|
-                          = f.hidden_field field, value: true
-                        %a{onclick: js}
-                          = text
-                      %li
-                        %a{"data-target" => "#duplicate-story-#{story.id}", "data-toggle" => "modal"}
-                          duplicate
-                      %li
-                        = link_to 'remove', [current_user, @backlog, story], method: :delete
+                  .pull-right
+                    .btn-group.btn-group-xs
+                      %button.btn.btn-default.dropdown-toggle{"data-toggle" => "dropdown", type: "button"}
+                        Actions
+                        %span.caret
+                      %ul.dropdown-menu
+                        %li
+                          - field, text = story.started_at.present? ? [:compleated, 'compleated'] : [:started, 'start']
+                          - form_name = "edit_story_#{text}_#{story.id}"
+                          - js = "$('##{form_name}').submit();"
+                          = form_for [current_user, @backlog, story], html: {  role: "form", id: form_name } do |f|
+                            = f.hidden_field field, value: true
+                          %a{onclick: js}
+                            = text
+                        %li
+                          %a{"data-target" => "#duplicate-story-#{story.id}", "data-toggle" => "modal"}
+                            duplicate
+                        %li
+                          = link_to 'remove', [current_user, @backlog, story], method: :delete
+
+                  .clearfix{ style: 'margin-bottom: 1em;'}
+                  .pull-right
+                    - if story.started_at.present?
+                      %span.label.label-success started
+                    - elsif story.sprint_ready
+                      %span.label.label-info sprint ready
+                    - else
+                      %span.label.label-danger needs review
+
+
 
 
 
