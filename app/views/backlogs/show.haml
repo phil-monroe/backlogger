@@ -50,17 +50,25 @@
                     - else
                       %span.label.label-danger needs review
 
-                  %td.text-right
-                    %div
-                      = form_for [current_user, @backlog, story], html: {  role: "form" } do |f|
-                        - field, text = story.started_at.present? ? [:compleated, 'compleated'] : [:started, 'start']
-                        = f.hidden_field field, value: true
-                        = f.submit text, class: 'btn btn-xs btn-success'
-                    %div
-                      %a.btn.btn-default.btn-xs{"data-target" => "#duplicate-story-#{story.id}", "data-toggle" => "modal"}
-                        duplicate
-                    %div
-                      = link_to 'remove', [current_user, @backlog, story], method: :delete, class: 'btn btn-xs btn-primary'
+                  %td
+                    .btn-group.btn-group-xs.pull-right
+                      %button.btn.btn-default.dropdown-toggle{"data-toggle" => "dropdown", type: "button"}
+                        Actions
+                        %span.caret
+                      %ul.dropdown-menu
+                        %li
+                          - field, text = story.started_at.present? ? [:compleated, 'compleated'] : [:started, 'start']
+                          - form_name = "edit_story_#{text}_#{story.id}"
+                          - js = "$('##{form_name}').submit();"
+                          = form_for [current_user, @backlog, story], html: {  role: "form", id: form_name } do |f|
+                            = f.hidden_field field, value: true
+                          %a{onclick: js}
+                            = text
+                        %li
+                          %a{"data-target" => "#duplicate-story-#{story.id}", "data-toggle" => "modal"}
+                            duplicate
+                        %li
+                          = link_to 'remove', [current_user, @backlog, story], method: :delete
 
 
 
