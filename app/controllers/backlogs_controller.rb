@@ -1,19 +1,19 @@
 class BacklogsController < ApplicationController
   def index
-    @backlogs = Backlog.all
+    @backlogs = current_user.backlogs.load
   end
 
   def show
-    @backlog = Backlog.find(params[:id])
+    @backlog = current_user.backlogs.find(params[:id])
   end
 
   def create
-    backlog = Backlog.create(backlog_params)
+    backlog = current_user.backlogs.create(backlog_params)
     redirect_to [current_user, backlog]
   end
 
   def update
-    backlog = Backlog.find(params[:id])
+    backlog = current_user.backlogs.find(params[:id])
     story_ids = params[:backlog][:story_order].split(',').map(&:to_i)
     backlog.story_order = story_ids
     backlog.save

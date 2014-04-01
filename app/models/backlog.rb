@@ -2,6 +2,7 @@ class Backlog < ActiveRecord::Base
   serialize :story_order, Array
 
   has_many :stories
+  belongs_to :user
 
   before_save do
     self.story_order = ordered_stories.compact.map(&:id)
