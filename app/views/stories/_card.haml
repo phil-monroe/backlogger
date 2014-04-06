@@ -7,27 +7,25 @@
   .qr-code
     - data = URI::encode "#{user_backlog_url(current_user, story.backlog)}##{story.id}"
     %img{src: "https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=#{data}"}
+  .clearfix
+  .title.text-center
+    %h2= story.title.first(40)
 
-  .row-fluid.title
-    .col-xs-12.text-center
-      %h2= story.title
+  .overview.text-center
+    = story.overview.gsub(/\n/, ', ')
 
-  .row-fluid.overview
-    .col-xs-12.text-center
-      = story.overview.gsub(/\n/, ', ')
-
-  .row-fluid.points.text-center
+  .points.text-center
     .col-xs-4
       %h4
-        Story Points:
+        Points:
       = story.story_points || '---'
 
     .col-xs-4
       %h4
-        Business Value:
+        Value:
       = story.business_value || '---'
 
     .col-xs-4
       %h4
         ROI:
-      = story.business_value || '---'
+      = story.roi || '---'

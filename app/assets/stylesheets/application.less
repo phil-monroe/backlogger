@@ -44,22 +44,28 @@ table.story-table {
 
 }
 
-.story-row{
-  .story-card{
-    padding-top: 7em;
-    .row-fluid{
-      padding-bottom: 4em;
-    }
-    .id {
-      position: absolute;
-      top: 5em;
-      left: 3em;
-    }
-    .qr-code{
-      position: absolute;
-      top: 5em;
-      right: 3em;
-    }
+body.story-cards {
+  width: 8.5in;
+}
+.story-card{
+  float: left;
+  width: 4.25in;
+  height: 3.666666667in;
+  margin: 0;
+  border-bottom: thin black solid;
+  border-right: thin black solid;
+  padding: 1em;
+  .id {
+    float: left;
+  }
+  .qr-code{
+    float: right;
+  }
+  .overview {
+    margin-top: 1em;
+  }
+  .points {
+    margin-top: 1em;
   }
 }
 
