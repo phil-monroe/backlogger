@@ -5,7 +5,7 @@
         = story.backlog.name.split.map(&:first).join.upcase + story.id.to_s
 
   .qr-code
-    - data = URI::encode "#{user_backlog_url(current_user, story.backlog)}##{story.id}"
+    - data = URI::encode "#{user_backlog_story_url(current_user, story.backlog, story)}"
     %img{src: "https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=#{data}"}
   .clearfix
   .title.text-center

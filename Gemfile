@@ -29,10 +29,11 @@ end
 
 
 group :test do
-  gem 'capybara'
   gem 'capybara-webkit'
+  gem 'capybara'
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
   gem 'factory_girl'
   gem 'shoulda-matchers'
+  gem 'timecop'
 end
