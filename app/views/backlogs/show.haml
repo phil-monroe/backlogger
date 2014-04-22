@@ -9,6 +9,8 @@
       = render 'stories/form_modal', id: "new-story", backlog: @backlog, story: Story.new
       %h1
         = @backlog.name
+        %span.badge.total-complexity{'data-toggle' => "tooltip", 'data-placement' => "bottom", 'title' => "Remaining Complexity"}
+          = @backlog.total_complexity
 
   .row
     .col-md-12

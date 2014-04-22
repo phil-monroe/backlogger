@@ -12,4 +12,8 @@ class Backlog < ActiveRecord::Base
     story_index = stories.uncompleted.inject(Hash.new) {|h, s| h[s.id] = s; h}
     story_order.map{|id| story_index[id]}.compact
   end
+
+  def total_complexity
+    stories.uncompleted.sum(:story_points)
+  end
 end

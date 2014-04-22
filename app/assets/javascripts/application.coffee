@@ -17,5 +17,6 @@ jQuery ->
         ids.push(id)
       $('#backlog_form #backlog_story_order').val(ids)
       $('#backlog_form').submit()
-      console.log("here")
   )
+
+  $('.total-complexity').tooltip()

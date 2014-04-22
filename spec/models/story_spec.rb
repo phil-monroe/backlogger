@@ -4,15 +4,15 @@ describe Story do
 
   describe '#roi' do
     it 'should be 0 if no business value and story points' do
-      expect(build(:story).roi).to eq(0)
+      expect(build(:story, story_points: 0, business_value: 0).roi).to eq(0)
     end
 
     it 'should be 0 if no story points' do
-      expect(build(:story, business_value: 10).roi).to eq(0)
+      expect(build(:story, story_points: 0, business_value: 10).roi).to eq(0)
     end
 
     it 'should be 0 if no business value' do
-      expect(build(:story, story_points: 10).roi).to eq(0)
+      expect(build(:story, story_points: 10, business_value: 0).roi).to eq(0)
     end
 
     it 'should equal business value / story points' do
