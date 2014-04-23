@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.1.1'
 
-gem 'rails', '4.0.4'
+gem 'rails', '4.1.0'
 
 gem 'coffee-rails', '~> 4.0.0'
 gem 'dalli'
@@ -34,6 +34,9 @@ group :test do
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
   gem 'factory_girl'
+  gem 'fuubar', require: false
+  gem 'rspec_junit_formatter', require: false
   gem 'shoulda-matchers'
+  gem 'simplecov-rcov'
   gem 'timecop'
 end
