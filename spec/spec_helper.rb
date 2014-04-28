@@ -26,6 +26,8 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'factory_girl'
 require 'rspec/rails'
 require 'rspec/autorun'
+require 'cancan/matchers'
+
 # Automigrate if needs migration
 if ActiveRecord::Migrator.needs_migration?
   ActiveRecord::Migrator.migrate(File.join(Rails.root, 'db/migrate'))
