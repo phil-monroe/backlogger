@@ -29,6 +29,7 @@ GEM
       tzinfo (~> 1.1)
     arel (5.0.1.20140414130214)
     builder (3.2.2)
+    cancancan (1.7.1)
     capybara (2.2.1)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -140,6 +141,7 @@ GEM
     rack-test (0.6.2)
       rack (>= 1.0)
     rack-timeout (0.0.4)
+    railroady (1.1.1)
     rails (4.1.0)
       actionmailer (= 4.1.0)
       actionpack (= 4.1.0)
@@ -236,6 +238,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  cancancan
   capybara
   capybara-webkit
   coffee-rails (~> 4.0.0)
@@ -253,6 +256,7 @@ DEPENDENCIES
   pry
   quiet_assets
   rack-timeout
+  railroady
   rails (= 4.1.0)
   rails_12factor
   rspec-rails

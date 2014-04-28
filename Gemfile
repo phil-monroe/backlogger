@@ -3,6 +3,7 @@ ruby '2.1.1'
 
 gem 'rails', '4.1.0'
 
+gem 'cancancan'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'dalli'
 gem 'haml-rails'
@@ -22,6 +23,7 @@ gem 'unicorn'
 
 
 group :development, :test do
+  gem 'railroady'
   gem 'rspec-rails'
   gem 'quiet_assets'
 end
