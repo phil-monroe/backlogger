@@ -5,6 +5,7 @@ Backlogger::Application.routes.draw do
 
   resources :users do
     resources :backlogs do
+      resources :backlog_sharings
       resources :stories
 
       member do
