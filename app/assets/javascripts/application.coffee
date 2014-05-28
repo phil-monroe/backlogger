@@ -2,7 +2,9 @@
 #= require jquery-sortable
 #= require jquery_ujs
 #= require simplex
+#= require flash
 #= require_self
+
 
 jQuery ->
   $('.sorted-table').sortable(
@@ -20,3 +22,5 @@ jQuery ->
   )
 
   $('.total-complexity').tooltip()
+
+  Flash.fadeOut()
