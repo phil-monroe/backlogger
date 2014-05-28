@@ -45,6 +45,6 @@
 
 
   .hidden
-    = form_for [current_user, @backlog], html: {id: 'backlog_form'}, remote: false do |f|
+    = form_for [current_user, @backlog], html: {id: 'backlog_form'}, remote: true do |f|
       = f.hidden_field :story_order
 

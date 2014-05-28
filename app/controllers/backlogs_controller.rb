@@ -1,5 +1,5 @@
 class BacklogsController < ApplicationController
-  layout false, only: :cards
+  layout false, only: [:cards, :update]
 
   def index
     @backlogs = current_user.backlogs + current_user.shared_backlogs
@@ -25,14 +25,18 @@ class BacklogsController < ApplicationController
 
   def update
     backlog = Backlog.find(params[:id])
-    if can?(:edit, backlog)
-      story_ids = params[:backlog][:story_order].split(',').map(&:to_i)
-      backlog.story_order = story_ids
-      backlog.save
-      redirect_to [current_user, backlog]
-    else
-      flash[:danger] = 'you cannot edit that backlog'
-      redirect_to user_backlog_path(current_user, backlog)
+    authorize! :edit, backlog
+    story_ids = params[:backlog][:story_order].split(',').map(&:to_i)
+    backlog.story_order = story_ids
+    backlog.save
+
+  rescue CanCan::AccessDenied
+    flash[:danger] = "Unable to update backlog"
+
+  ensure
+    respond_to do |format|
+      format.html { redirect_to [current_user, backlog] }
+      format.js
     end
   end
 
