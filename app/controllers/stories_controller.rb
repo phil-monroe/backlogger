@@ -7,10 +7,13 @@ class StoriesController < ApplicationController
   end
 
   def update
-    story = backlog.stories.find(params[:id])
-    puts story_params.inspect
-    story.update_attributes(story_params)
-
+    if can? :edit, backlog
+      story = backlog.stories.find(params[:id])
+      puts story_params.inspect
+      story.update_attributes(story_params)
+    else
+      flash[:danger] = "no"
+    end
     redirect_to [current_user, backlog]
   end
 
