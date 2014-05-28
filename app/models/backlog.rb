@@ -4,6 +4,9 @@ class Backlog < ActiveRecord::Base
   has_many :stories
   belongs_to :user
 
+  has_many :backlog_sharings
+  has_many :shared_users, through: :backlog_sharings, source: :user
+
   before_save do
     self.story_order = ordered_stories.compact.map(&:id)
   end

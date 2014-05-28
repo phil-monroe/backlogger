@@ -1,0 +1,20 @@
+
+%h4
+  Shared with:
+
+%ul#shared-users-list
+
+  - @backlog.shared_users.each do |user|
+    %li
+      = "#{user.name} (#{user.email})"
+
+
+
+%h4
+  Add Shared Users:
+= form_for [@backlog.user, @backlog, BacklogSharing.new(backlog: @backlog)], remote: true do |f|
+  = f.hidden_field :backlog_id
+  = f.text_field   :user_email
+  = f.submit "Add User", class: 'btn btn-primary btn-xs'
+
+

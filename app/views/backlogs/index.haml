@@ -6,7 +6,7 @@
         - @backlogs.each do |backlog|
           %li
             %h2
-              %a{href: user_backlog_path(current_user, backlog)}
+              %a{href: user_backlog_path(backlog.user, backlog)}
                 = backlog.name
 
     .col-md-2

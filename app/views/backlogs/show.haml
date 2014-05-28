@@ -1,89 +1,50 @@
-= cache [@backlog, 'show'] do
+= cache [current_user, @backlog, 'show'] do
   .row
     .col-lg-12
       .bottom-right
-        %a.btn.btn-info.btn-sm{href: cards_user_backlog_path(current_user, @backlog)}
-          Print Cards
-        %a.btn.btn-info.btn-sm{"data-target" => "#new-story", "data-toggle" => "modal"}
-          Add Story
-      = render 'stories/form_modal', id: "new-story", backlog: @backlog, story: Story.new
+        %ul.nav.nav-pills
+          %li.active
+            %a{"data-toggle" => "tab", href: "#ordered-stories"} Stories
+          %li
+            %a{"data-toggle" => "tab", href: "#dashboard"} Dashboard
+          - if can? :edit, @backlog
+            %li
+              %a{"data-toggle" => "tab", href: "#sharing"} Sharing
+            %li
+              %a{"data-toggle" => "tab", href: "#settings"} Settings
       %h1
         = @backlog.name
         %span.badge.total-complexity{'data-toggle' => "tooltip", 'data-placement' => "bottom", 'title' => "Remaining Complexity"}
           = @backlog.total_complexity
 
-  .row
-    .col-md-12
-      %table.table.table-striped.sorted-table.story-table
-        %thead
-          %tr
-            %th.grabber
-            %th.id                 id
-            %th.title              title
-            %th.overview           overview
-            %th.points.text-center points
-            %th.roi.text-center    roi
-            %th.actions
-        %tbody
-          - @backlog.ordered_stories.each do |story|
-            = cache [@backlog, story, 'story-row'] do
-              %tr{'data-story-id' => story.id}
-                %td.grabber |||
-
-                %td
-                  = story.id
-
-
-                %td{"data-target" => "#edit-story-#{story.id}", "data-toggle" => "modal"}
-                  %strong
-                    = story.title
-
-                %td{"data-target" => "#edit-story-#{story.id}", "data-toggle" => "modal"}
-                  - story.overview.split("\n").each do |line|
-                    %p= line
-
-                %td.text-center
-                  = story.story_points
-
-                %td.text-center
-                  = story.roi
-
-                %td
-                  .pull-right
-                    .btn-group.btn-group-xs
-                      %button.btn.btn-default.dropdown-toggle{"data-toggle" => "dropdown", type: "button"}
-                        Actions
-                        %span.caret
-                      %ul.dropdown-menu
-                        %li
-                          - field, text = story.started_at.present? ? [:compleated, 'compleated'] : [:started, 'start']
-                          - form_name = "edit_story_#{text}_#{story.id}"
-                          - js = "$('##{form_name}').submit();"
-                          = form_for [current_user, @backlog, story], html: {  role: "form", id: form_name } do |f|
-                            = f.hidden_field field, value: true
-                          %a{onclick: js}
-                            = text
-                        %li
-                          %a{"data-target" => "#duplicate-story-#{story.id}", "data-toggle" => "modal"}
-                            duplicate
-                        %li
-                          = link_to 'remove', [current_user, @backlog, story], method: :delete
-
-                  .clearfix{ style: 'margin-bottom: 1em;'}
-                  .pull-right
-                    - if story.started_at.present?
-                      %span.label.label-success started
-                    - elsif story.sprint_ready
-                      %span.label.label-info sprint ready
-                    - else
-                      %span.label.label-danger needs review
 
 
 
 
+  .tab-content
+    #ordered-stories.tab-pane.active
+      = render 'stories_list', backlog: @backlog, stories: @backlog.ordered_stories
+      .row
+        .col-lg-12
+          .pull-right
+            %a.btn.btn-info.btn-sm{"data-target" => "#new-story", "data-toggle" => "modal"}
+              Add Story
+            %a.btn.btn-info.btn-sm{href: cards_user_backlog_path(current_user, @backlog)}
+              Print Cards
+          = render 'stories/form_modal', id: "new-story", backlog: @backlog, story: Story.new
 
-                = render 'stories/form_modal', id: "edit-story-#{story.id}", backlog: @backlog, story: story
-                = render 'stories/form_modal', id: "duplicate-story-#{story.id}", backlog: @backlog, story: story.dup
+    #dashboard.tab-pane
+      Dashboard
+
+    - if can? :edit, @backlog
+      #sharing.tab-pane
+        = render 'backlog_sharing', backlog: @backlog
+
+      #settings.tab-pane
+        settings
+
+
   .hidden
-    = form_for [current_user, @backlog], html: {id: 'backlog_form'} do |f|
+    = form_for [current_user, @backlog], html: {id: 'backlog_form'}, remote: true do |f|
       = f.hidden_field :story_order
+
